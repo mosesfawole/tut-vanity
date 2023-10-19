@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
+import Button from "@/components/button/Button";
 const About = () => {
   return (
     <div>
@@ -29,7 +30,16 @@ const About = () => {
         </div>
         <div className={styles.item}>
           <h1 className={styles.title}>What we do</h1>
-          <p className=""></p>
+          <p className="">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sed
+            harum rerum nam autem vel, a nobis quam fuga, ratione possimus
+            labore nesciunt tenetur unde impedit, non reprehenderit eius quod!
+            Creative Illustrations
+            <br /> — Dynamic Websites
+            <br /> — Fast Apps
+            <br /> — Mobile Apps
+          </p>
+          <Button url="contact" text="Contact" />
         </div>
       </div>
     </div>
