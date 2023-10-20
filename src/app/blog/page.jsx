@@ -3,6 +3,18 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+async function getData() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
 const Blog = async () => {
   const data = await getData();
   return (
@@ -15,7 +27,7 @@ const Blog = async () => {
         >
           <div className={styles.imageContainer}>
             <Image
-              src={item.img}
+              src="/apps.jpg"
               alt=""
               width={400}
               height={250}
@@ -24,7 +36,7 @@ const Blog = async () => {
           </div>
           <div className={styles.content}>
             <h1 className={styles.title}>{item.title}</h1>
-            <p className={styles.desc}>{item.desc}</p>
+            <p className={styles.desc}>{item.body}</p>
           </div>
         </Link>
       ))}
