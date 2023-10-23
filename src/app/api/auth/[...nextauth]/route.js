@@ -2,6 +2,7 @@ import connect from "@/utils/db";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
+import Credentials from "next-auth/providers/credentials";
 
 const handler = NextAuth({
   providers: [
@@ -10,14 +11,14 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
 
-    CredentialsProvider({
+    Credentials({
       id: "credentials",
       name: "credentials",
       async authorize(credentials) {
         await connect();
 
         try {
-          const user = User.findOne({ email: credentials.email });
+          const user = await User.findOne({ email: credentials.email });
 
           if (user) {
             // check passwrd
@@ -40,6 +41,9 @@ const handler = NextAuth({
       },
     }),
   ],
+  pages: {
+    error: "/dashboard/login",
+  },
 });
 
 export { handler as GET, handler as POST };
