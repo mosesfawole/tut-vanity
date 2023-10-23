@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import connect from "@/utils/db";
 import Post from "@/models/Post";
+import { useSearchParams } from "next/navigation";
 
 export const GET = async (request) => {
   const url = new URL(request.url);
 
+  const searchParams = useSearchParams();
   const username = url.searchParams.get("username");
 
   try {
