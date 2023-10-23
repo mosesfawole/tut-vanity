@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 async function getData() {
-  const res = await fetch("https://localhost:3000/api/posts", {
-    cache: "no-cache",
+  const res = await fetch("http://localhost:3000/api/posts", {
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -20,11 +20,7 @@ const Blog = async () => {
   return (
     <div className={styles.mainContainer}>
       {data.map((item) => (
-        <Link
-          href={`/blog/${item._id}`}
-          className={styles.container}
-          key={item.id}
-        >
+        <Link href={`/blog/${item._id}`} className={styles.container} key={item.id}>
           <div className={styles.imageContainer}>
             <Image
               src={item.img}
@@ -36,7 +32,7 @@ const Blog = async () => {
           </div>
           <div className={styles.content}>
             <h1 className={styles.title}>{item.title}</h1>
-            <p className={styles.desc}>{item.content}</p>
+            <p className={styles.desc}>{item.desc}</p>
           </div>
         </Link>
       ))}

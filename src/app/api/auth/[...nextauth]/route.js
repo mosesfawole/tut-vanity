@@ -1,49 +1,57 @@
-import connect from "@/utils/db";
 import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import User from "@/models/User";
+import connect from "@/utils/db";
 import bcrypt from "bcryptjs";
-import Credentials from "next-auth/providers/credentials";
 
 const handler = NextAuth({
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-
-    Credentials({
+    CredentialsProvider({
       id: "credentials",
-      name: "credentials",
+      name: "Credentials",
       async authorize(credentials) {
+        //Check if the user exists.
         await connect();
 
         try {
-          const user = await User.findOne({ email: credentials.email });
+          const user = await User.findOne({
+            email: credentials.email,
+          });
 
           if (user) {
-            // check passwrd
-            const checkPassword = await bcrypt.compare(
+            const isPasswordCorrect = await bcrypt.compare(
               credentials.password,
               user.password
             );
 
-            if (checkPassword) {
+            if (isPasswordCorrect) {
               return user;
             } else {
-              ("Wrong Credentials");
+              throw new Error("Wrong Credentials!");
             }
           } else {
-            throw new Error("User not found");
+            throw new Error("User not found!");
           }
-        } catch (error) {
-          throw new Error(error);
+        } catch (err) {
+          throw new Error(err);
         }
       },
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   pages: {
     error: "/dashboard/login",
   },
+
 });
 
 export { handler as GET, handler as POST };

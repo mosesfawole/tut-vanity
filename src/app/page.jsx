@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import HeroImg from "public/hero.png";
-import { Button } from "@/components";
+import Hero from "public/hero.png";
+import Button from "@/components/Button/Button";
 
 export default function Home() {
   return (
@@ -14,10 +14,10 @@ export default function Home() {
           Turning your Idea into Reality. We bring together the teams from the
           global tech industry.
         </p>
-        <Button url="/portfolio" text="See Our Works" />
+        <Button url="/portfolio" text="See Our Works"/>
       </div>
       <div className={styles.item}>
-        <Image src={HeroImg} alt="" className={styles.img} />
+        <Image src={Hero} alt="" className={styles.img} />
       </div>
     </div>
   );
