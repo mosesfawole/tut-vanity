@@ -1,4 +1,4 @@
-.container {
+.container{
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -6,18 +6,18 @@
   justify-content: center;
 }
 
-.form {
+.form{
   width: 300px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.input {
+.input{
   padding: 20px;
   background-color: transparent;
   border: 2px solid #bbb;
-  color: #bbb;
+  color:#bbb;
   border-radius: 5px;
   font-size: 20px;
   font-weight: bold;
@@ -29,7 +29,7 @@
   cursor: pointer;
   background-color: #53c28b;
   border: none;
-  border-radius: k5px;
+  border-radius: 5px;
   color: #eee;
   font-weight: bold;
 }
